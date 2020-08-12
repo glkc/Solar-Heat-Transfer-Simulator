@@ -38,7 +38,7 @@ class StorageTank:
         self._tank_temp = tank_temp_k
         self._init_temp = tank_temp_k
         self._tank_energy = init_tank_energy
-        self._tank_heat_loss = tank_in_heat_loss_p_sec
+        self._tank_heat_loss_factor = tank_in_heat_loss_p_sec
         self._liq_capacity = liq_heat_capacity
 
     def get_pumping_h(self):
@@ -59,7 +59,7 @@ class StorageTank:
         self._liq_vol = self._tank_vol
 
     def heat_loss_step(self):
-        loss = max(0, 0.0 * self._tank_heat_loss * self._tank_energy)
+        loss = max(0, self._tank_heat_loss_factor * self._tank_energy)
         self._tank_energy -= loss
         self._tank_temp += (-1 * loss) / (self._liq_vol * self._liq_capacity)
 
